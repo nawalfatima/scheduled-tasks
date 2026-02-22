@@ -12,17 +12,20 @@ print("EMAIL:", os.environ.get("MY_EMAIL"))
 print("PASSWORD EXISTS:", os.environ.get("MY_PASSWORD") is not None)
 # 1. Update the birthdays.csv
 bdays = pd.read_csv('birthdays.csv')
+print(bdays.shape, "bdays shape check")
 # 2. Check if today matches a birthday in the birthdays.csv
 now = dt.datetime.now()
 day = now.day
 month = now.month
+print(f"day is {day}, month is {month} in now ")
 
 recs = bdays.loc[(bdays['day'] == day) & (bdays['month'] == month)]
-print(recs)
+print(recs.shape, "shape of recs")
 
 # 3. If step 2 is true, pick a random letter from letter templates and replace the [NAME] with the person's actual name from birthdays.csv
 for index, rec in recs.iterrows():
     letter_files = os.listdir('letter_templates')
+    print(letter_files, "letter files ")
     letter_f = random.choice(letter_files)
     with open (f"letter_templates/{letter_f}") as f:
         letter = f.read()
