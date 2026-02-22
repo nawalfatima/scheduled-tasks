@@ -4,6 +4,7 @@ import smtplib
 import random
 import pandas as pd
 import datetime as dt
+from zoneinfo import ZoneInfo
 
 
 MY_EMAIL = os.environ.get("MY_EMAIL")
@@ -14,7 +15,7 @@ print("PASSWORD EXISTS:", os.environ.get("MY_PASSWORD") is not None)
 bdays = pd.read_csv('birthdays.csv')
 print(bdays.shape, "bdays shape check")
 # 2. Check if today matches a birthday in the birthdays.csv
-now = dt.datetime.now()
+now = dt.datetime.now(ZoneInfo("Asia/Kuala_Lumpur"))
 day = now.day
 month = now.month
 print(f"day is {day}, month is {month} in now ")
@@ -36,7 +37,7 @@ for index, rec in recs.iterrows():
     #4. Send the letter generated in step 3 to that person's email address.
     with smtplib.SMTP('smtp.gmail.com', 587) as connection:
         connection.starttls()
-        connection.login(MY_EMAIL, PASSWORD)
+        connection.login(MY_EMAIL, MY_PASSWORD)
         connection.sendmail(from_addr=MY_EMAIL,to_addrs=rec['email'],msg = f"Subject: Happy Birthday!\n\n{updated_letter}")
 
 
