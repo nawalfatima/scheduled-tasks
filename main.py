@@ -16,8 +16,10 @@ bdays = pd.read_csv('birthdays.csv')
 print(bdays.shape, "bdays shape check")
 # 2. Check if today matches a birthday in the birthdays.csv
 now = dt.datetime.now(ZoneInfo("Asia/Kuala_Lumpur"))
-day = now.day
-month = now.month
+day =  23
+#now.day
+month = 2
+#now.month
 print(f"day is {day}, month is {month} in now ")
 
 recs = bdays.loc[(bdays['day'] == day) & (bdays['month'] == month)]
